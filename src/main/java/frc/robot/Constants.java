@@ -13,6 +13,9 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Meters;
+
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.RobotBase;
 
 /**
@@ -23,6 +26,12 @@ public final class Constants {
     public static final Mode simMode = Mode.SIM;
     public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
     public static final int PDH_ID = 1;
+
+    public static class LedConstants {
+        public static final int kLedPort = 9;
+        public static final int kLedLength = 60;
+        public static final Distance kLedSpacing = Meters.of(0.05);
+    }
 
     public static enum Mode {
         /** Running on a real robot. */

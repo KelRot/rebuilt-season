@@ -1,17 +1,14 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.util.motors.MotorIO.Motor;
-import frc.robot.util.motors.controllers.SparkBaseController;
+import frc.robot.util.led.Led;
+import frc.robot.util.led.patterns.LedPattern;
 
 public class exampleSubsystem extends SubsystemBase {
 
-    private final SparkBaseController motor;
-
-    public exampleSubsystem(Motor motor) {
-
-        this.motor = new SparkBaseController(motor);
-        
+    public exampleSubsystem(Led led) {
+        led.setAnimation(
+                new LedPattern.ColorFlow(Color.kAliceBlue, LedPattern.ColorFlow.Direction.FORWARD, 1.0), 0, 11);
     }
-
 }

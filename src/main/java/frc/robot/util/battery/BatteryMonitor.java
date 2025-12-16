@@ -1,12 +1,11 @@
 package frc.robot.util.battery;
 
-import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
-import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
-import org.littletonrobotics.junction.networktables.LoggedNetworkString;
-
 import edu.wpi.first.math.filter.LinearFilter;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 
 public class BatteryMonitor extends Command {
 
@@ -16,13 +15,13 @@ public class BatteryMonitor extends Command {
 
     private final LinearFilter filter;
     private final LoggedNetworkBoolean lowBattery;
-    private final LoggedNetworkNumber voltage;
+    private final Alert alert;
     private double avgVoltage;
 
     public BatteryMonitor() {
         filter = LinearFilter.movingAverage(SAMPLE_COUNT);
         lowBattery = new LoggedNetworkBoolean(NT_TOPIC + "Low");
-        voltage = new LoggedNetworkNumber(NT_TOPIC + "Voltage");
+        alert = new Alert("Battery is too low for the match", AlertType.kWarning);
 
         avgVoltage = BatteryUtils.getCurrentVoltage();
     }
@@ -42,9 +41,11 @@ public class BatteryMonitor extends Command {
 
         if (isLow && !DriverStation.isEnabled()) {
             lowBattery.set(true);
-            voltage.set(avgVoltage);
+            alert.setText(String.format("Battery is too low for the match : %2fV", avgVoltage));
+            alert.set(true);
         } else {
             lowBattery.set(false);
+            alert.set(false);
         }
     }
 }
