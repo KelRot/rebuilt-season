@@ -1,19 +1,93 @@
-# AdvantageKit SparkMax Swerve Template with maple-sim
+# KelRot 5655 | 2026 Season Rebuilt Template
 
-[Original Project](https://github.com/Mechanical-Advantage/AdvantageKit/releases/download/v4.0.0-beta-1/AdvantageKit_SparkSwerveTemplate.zip)
+This repository serves as the official **2026 Season Rebuilt Template** for **FRC Team 5655 KelRot**. It is designed to provide a robust, competitive foundation for the upcoming season, integrating modern FRC software libraries and best practices.
 
-This is the AdvantageKit Swerve Template with REV SparkMax hardware, enhanced with maple-sim integration for improved chassis physics simulation.
+Built upon **AdvantageKit** and **Maple-Sim**, this template supports advanced logging, simulation, and reliable swerve drive control.
 
-Not many changes were made to the original project—only the necessary ones to implement maple-sim. See the [changelog from the original project](https://github.com/Shenzhen-Robotics-Alliance/maple-sim/commit/17cf2894008e4fa45492efa3937123494879ef81).
+## Key Features
 
-The control loops of the chassis run on REV motor controllers.  During simulation, they are replaced with WpiLib `PIDController`, so there might be slight differences between the real and simulated robot.
+- **AdvantageKit Integration**: Advanced log-replay functionality for faster debugging and tuning.
+- **Physics Simulation**: Integrated **Maple-Sim** for realistic swerve drive physics in simulation.
+- **Advanced Control**:
+  - **Motion Profiling**: Custom `SCurveProfile` and `ExponentialPID` classes for smooth motion control.
+  - **Swerve Drive**: Pre-configured support for REV SparkMax/Flex swerve modules.
+- **Utilities**:
+  - **LED System**: Comprehensive `Led` subsystem for robot state visualization.
+  - **Battery Monitoring**: `BatteryUtils` for tracking voltage sag and power usage.
+  - **Tunable Numbers**: `LoggedTunableNumber` for real-time dashboard tuning without code deploys.
+- **Code Quality**: Pre-configured `Spotless` formatting and structured Command-Based architecture.
 
-## Getting Started
-The usage of this project is identical to the original. See the [AdvantageKit Online Documentation](https://docs.advantagekit.org/getting-started/template-projects/spark-swerve-template) for instructions on how to use this template.
+---
 
-## Running the Simulation
-Change `Constants.currentRobotMode` to `SIM` and run `simulateJava`.
-Connect the robot from AdvantageScope, open [AdvantageScope Simulation Layout](./AdvantageScope%20Simulation.json), and drive your robot around!
+## 🚀 Getting Started
 
-## Using Vision
-The [AdvantageKit Vision Example](https://docs.advantagekit.org/getting-started/template-projects/vision-template) is also included in this project. Note that there is a slight difference when setting up vision if you're using maple-sim. See the [code](https://github.com/Shenzhen-Robotics-Alliance/maple-sim/blob/c7f0c858c68351f91118f2042e88d0f0ef40d865/templates/AdvantageKit_SparkSwerveTemplate-maple-sim/src/main/java/frc/robot/RobotContainer.java#L86-L91).
+### Prerequisites
+
+- Operating System: Windows 10/11, macOS, or Linux.
+- **WPILib 2025/2026**: The latest FRC Game Tools and Software.
+
+### WPILib Installation Guide
+
+To develop code for this project, you must interpret the official WPILib development environment. Follow these steps:
+
+#### 1. Download the Installer
+- Visit the official [WPILib Releases Page on GitHub](https://github.com/wpilibsuite/allwpilib/releases).
+- Download the latest release installer for your operating system (e.g., `WPILib_Windows-2025.x.x.iso`).
+
+#### 2. Run the Installer
+- **Windows**: Right-click the downloaded `.iso` file and select **Mount**. Open the mounted drive and run `WPILibInstaller.exe`.
+- **macOS/Linux**: Extract the downloaded archive and run the installer script.
+
+#### 3. Installation Steps
+1.  **Welcome Screen**: Click **Start**.
+2.  **Select Install Type**: Choose **"Install for this User"** (Recommended).
+3.  **VS Code Options**:
+    - If you don't have VS Code installed, let the installer download and install it.
+    - If you strictly want to use an existing install, select it, but the "Included VS Code" is safer for compatibility.
+4.  **Confirm**: Click **Install**. The installer will set up the JDK, C++ Compiler, VS Code, and WPILib extensions.
+5.  **Finish**: Once complete, you will see a new shortcut on your desktop labeled **"FRC VS Code"**.
+
+**Important**: Always open this project using the **"FRC VS Code"** shortcut, not the standard VS Code shortcut.
+
+---
+
+### Project Setup
+
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/KelRot/lib.git
+    cd 2026-library-lastversion
+    ```
+
+2.  **Open in FRC VS Code**:
+    - Launch **FRC VS Code**.
+    - Go to `File > Open Folder...` and select the repository folder.
+
+3.  **Build the Code**:
+    - Press `Ctrl+Shift+P` (Windows) or `Cmd+Shift+P` (macOS) to open the Command Palette.
+    - Type and select **`WPILib: Build Robot Code`**.
+    - The first build may take a few minutes as it downloads dependencies (vendor libraries, etc.).
+
+---
+
+## 🎮 Simulation
+
+This template supports high-fidelity simulation using Maple-Sim.
+
+1.  Ensure you have [AdvantageScope](https://github.com/Mechanical-Advantage/AdvantageScope) installed.
+2.  In FRC VS Code, press `F5` or verify the target is set to **Simulation**.
+3.  When the simulation launches, open AdvantageScope.
+4.  Connect to the simulator within AdvantageScope to visualize the robot's motion and logs.
+
+---
+
+## 🛠 Maintenance
+
+- **Formatting**: This project uses Spotless to enforce code style. Run the following command to fix formatting issues automatically:
+  ```bash
+  ./gradlew spotlessApply
+  ```
+
+---
+
+**Maintained by FRC Team 5655 KelRot**
