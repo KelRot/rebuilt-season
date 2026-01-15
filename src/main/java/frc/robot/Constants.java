@@ -9,6 +9,8 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.Meters;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.RobotBase;
 
@@ -29,7 +31,7 @@ public final class Constants {
     }
 
     public static class DriveConstants {
-        public static final Pose2d hub = new Pose2d(0,0);
+        public static final Pose2d hub = new Pose2d(0.0,0.0, new Rotation2d());
     }
 
     public static enum Mode {

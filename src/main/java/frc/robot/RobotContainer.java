@@ -15,9 +15,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.commands.Drive.JoystickDrive;
+import frc.robot.commands.Drive.joystickDrive;
 import frc.robot.commands.Drive.SlowJoystickDrive;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
@@ -91,8 +92,8 @@ public class RobotContainer {
         autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
         // Set up SysId routines
-        autoChooser.addOption("Drive Wheel Radius Characterization", JoystickDrive.wheelRadiusCharacterization(drive));
-        autoChooser.addOption("Drive Simple FF Characterization", JoystickDrive.feedforwardCharacterization(drive));
+        autoChooser.addOption("Drive Wheel Radius Characterization", joystickDrive.wheelRadiusCharacterization(drive));
+        autoChooser.addOption("Drive Simple FF Characterization", joystickDrive.feedforwardCharacterization(drive));
         autoChooser.addOption(
                 "Drive SysId (Quasistatic Forward)", drive.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
         autoChooser.addOption(
@@ -113,13 +114,13 @@ public class RobotContainer {
 
         if(slowMode == false){
                 // Default command, normal field-relative drive
-                drive.setDefaultCommand(JoystickDrive.joystickDrive(
+                drive.setDefaultCommand(joystickDrive.joystickDrive(
                         drive, () -> -controller.getLeftY(), () -> -controller.getLeftX(), () -> -controller.getRawAxis(2)));
 
                 // Lock to 0° when A button is held
                 controller
                         .a()
-                        .whileTrue(JoystickDrive.joystickDriveAtAngle(
+                        .whileTrue(joystickDrive.joystickDriveAtAngle(
                                 drive, () -> -controller.getLeftY(), () -> -controller.getLeftX(), () -> new Rotation2d()));
                 }
 
@@ -148,7 +149,7 @@ public class RobotContainer {
                         .ignoringDisable(true));
 
         //Switch modes when Y button is pressed
-        controller.y().onTrue(slowMode = !slowMode);
+        controller.y().onTrue(new InstantCommand(()-> slowMode = !slowMode));
     }
 
     /**

@@ -5,9 +5,11 @@
 // license that can be found in the LICENSE file at
 // the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Drive;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -16,11 +18,13 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.drive.Drive;
-import frc.robot.util.GeomUtil;
 import frc.robot.util.LoggedTunableNumber;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.DriveConstants;
+import frc.robot.subsystems.drive.GyroIOPigeon2;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -42,19 +46,19 @@ public class HubAllign extends Command{
     public HubAllign(Drive drive, GyroIOPigeon2 gyro) {
         this.drive = drive;
         this.gyro = gyro;
-        gyroRadian = gyro.inputs.yawPositionRad;
+        gyroRadian = drive.getPose().getRotation().getRadians();
         pid = new PIDController(ANGLE_KP, 0.0, ANGLE_KD);
         pid.enableContinuousInput(-Math.PI, Math.PI);
         hubPose = Constants.DriveConstants.hub;
-        botPose = Drive.getPose();
-        targetRad = Math.atan2(hubPose.getY - botPose.getY, hubPose.getX - botPose.getX);
+        botPose = this.drive.getPose();
+        targetRad = Math.atan2(hubPose.getY() - botPose.getY(), hubPose.getX() - botPose.getX());
 
-        addRequirements(drive, gyro);
+        addRequirements(drive);
     }
 
     @Override
     public void execute(){
-        drive.runVelocity(new ChassisSpeeds (0, 0, new Rotation2d(pid.calculate(gyroRadian, targetRad))));
+        drive.runVelocity(new ChassisSpeeds (0, 0, pid.calculate(gyroRadian, targetRad)));
     }
 
     @Override
