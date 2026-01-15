@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
-public class DriveCommands {
+public class SlowJoystickDrive {
     private static final double DEADBAND = 0.1;
     private static final double ANGLE_KP = 5.0;
     private static final double ANGLE_KD = 0.4;
@@ -43,7 +43,7 @@ public class DriveCommands {
     private static final double WHEEL_RADIUS_RAMP_RATE = 0.05; // Rad/Sec^2
     private static final double SLOW_RATE = 0.3; 
 
-    private DriveCommands() {}
+    private SlowJoystickDrive() {}
 
     private static Translation2d getLinearVelocityFromJoysticks(double x, double y) {
         // Apply deadband

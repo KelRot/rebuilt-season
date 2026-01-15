@@ -28,6 +28,10 @@ public final class Constants {
         public static final Distance kLedSpacing = Meters.of(0.05);
     }
 
+    public static class DriveConstants {
+        public static final Pose2d hub = new Pose2d(0,0);
+    }
+
     public static enum Mode {
         /** Running on a real robot. */
         REAL,
