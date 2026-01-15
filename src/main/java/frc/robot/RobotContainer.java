@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.Drive.joystickDrive;
+import frc.robot.commands.Drive.HubAllign;
 import frc.robot.commands.Drive.SlowJoystickDrive;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
@@ -150,6 +151,8 @@ public class RobotContainer {
 
         //Switch modes when Y button is pressed
         controller.y().onTrue(new InstantCommand(()-> slowMode = !slowMode));
+
+        controller.leftTrigger().whileTrue((new HubAllign(drive)));
     }
 
     /**
